@@ -1,7 +1,8 @@
-package universalelectricity.core.implement;
+package universalelectricity.prefab.conductor;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.core.implement.INetworkProvider;
 
 /**
  * Must be applied to all tile entities that are conductors.
@@ -22,7 +23,7 @@ public interface IConductor extends INetworkProvider
 	 * Gets the resistance of the conductor. Used to calculate energy loss. A higher resistance
 	 * means a higher energy loss.
 	 * 
-	 * @return The amount of Ohm's of resistance.
+	 * @return The amount of resistance in Ohms.
 	 */
 	public double getResistance();
 
@@ -40,7 +41,7 @@ public interface IConductor extends INetworkProvider
 	public void onOverCharge();
 
 	/**
-	 * Resets the conductor and recalculate connection IDs again
+	 * Resets the conductor
 	 */
 	public void reset();
 

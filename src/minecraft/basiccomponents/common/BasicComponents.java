@@ -25,7 +25,7 @@ public class BasicComponents
 	public static Block blockCopperWire;
 	public static Block blockMachine;
 
-	public static final int ITEM_ID_PREFIX = 13970;
+	public static int ITEM_ID_PREFIX = 13970;
 	public static ItemElectric itemBattery;
 	public static Item itemWrench;
 	public static Item itemCopperIngot;
@@ -47,4 +47,5 @@ public class BasicComponents
 
 	public static OreGenBase copperOreGeneration;
 	public static OreGenBase tinOreGeneration;
+
 }

@@ -2,9 +2,11 @@ package universalelectricity.core;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.event.world.WorldEvent.Unload;
 import universalelectricity.core.electricity.Electricity;
+import universalelectricity.core.electricity.ElectricityConnections;
 import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Loader;
 
 /**
  * A class used to load Universal Electricity and make it work.
@@ -32,6 +34,24 @@ public class UELoader
 			UniversalElectricity.TO_IC2_RATIO = 1 / UniversalElectricity.IC2_RATIO;
 			UniversalElectricity.TO_BC_RATIO = 1 / UniversalElectricity.BC3_RATIO;
 
+			if (UniversalElectricity.BC3_RATIO <= 0 || !Loader.isModLoaded("BuildCraft|Core"))
+			{
+				System.out.println("Disabled Buildcraft electricity conversion!");
+			}
+			else
+			{
+				System.out.println("Buildcraft conversion ratio: " + UniversalElectricity.BC3_RATIO);
+			}
+
+			if (UniversalElectricity.IC2_RATIO <= 0 || !Loader.isModLoaded("IC2"))
+			{
+				System.out.println("Disabled Industrialcraft electricity conversion!");
+			}
+			else
+			{
+				System.out.println("IC2 conversion ratio: " + UniversalElectricity.IC2_RATIO);
+			}
+
 			FMLLog.finest("Universal Electricity v" + UniversalElectricity.VERSION + " successfully loaded!");
 
 			isInitialized = true;
@@ -39,16 +59,9 @@ public class UELoader
 	}
 
 	@ForgeSubscribe
-	public void onWorldUnLoad(WorldEvent.Unload event)
+	public void onWorldUnload(Unload event)
 	{
 		Electricity.instance = new Electricity();
-		Electricity.instance.cleanUpNetworks();
-	}
-
-	@ForgeSubscribe
-	public void onWorldLoad(WorldEvent.Load event)
-	{
-		Electricity.instance = new Electricity();
-		Electricity.instance.cleanUpNetworks();
+		ElectricityConnections.clearAll();
 	}
 }

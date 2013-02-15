@@ -31,8 +31,9 @@ public class BlockBasicMachine extends BlockMachine
 
 	public BlockBasicMachine(int id, int textureIndex)
 	{
-		super("bcMachine", id, UniversalElectricity.machine, UETab.INSTANCE);
-		this.blockIndexInTexture = textureIndex;
+		super(id, textureIndex, UniversalElectricity.machine);
+		this.setBlockName("bcMachine");
+		this.setCreativeTab(UETab.INSTANCE);
 		this.setStepSound(soundMetalFootstep);
 	}
 
@@ -333,6 +334,20 @@ public class BlockBasicMachine extends BlockMachine
 	public ItemStack getElectricFurnace()
 	{
 		return new ItemStack(this.blockID, 1, ELECTRIC_FURNACE_METADATA);
+	}
+
+	@Override
+	public int damageDropped(int metadata)
+	{
+		if (metadata > ELECTRIC_FURNACE_METADATA)
+		{
+			return ELECTRIC_FURNACE_METADATA;
+		}
+		else if (metadata > BATTERY_BOX_METADATA)
+		{
+			return BATTERY_BOX_METADATA;
+		}
+		return COAL_GENERATOR_METADATA;
 	}
 
 	@Override
